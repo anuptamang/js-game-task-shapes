@@ -1,43 +1,31 @@
-import { gameBoxScreenHolder, state } from '../app'
+import { state } from '../app'
 import { UI_CONSTANTS } from '../data/constants'
-import { getUniqueCompareResult, shuffle, visibleY } from '../utils'
-import { handleCounterDisplay } from './handleCounterDisplay'
+import { getUniqueCompareResult, shuffle } from '../utils'
 import { handleCreateImage } from './handleCreateImage'
+import { handleMoveShape } from './handleMoveShape'
 import { handleRemoveFigureOnClick } from './handleRemoveFigureOnClick'
+import { handleRemoveShape } from './handleRemoveShape'
 
 export function handleItemAddRemove(type) {
   if (type === UI_CONSTANTS.ADD) {
     const d = getUniqueCompareResult(state.data, state.initialData)
-    let popData = shuffle(d).pop()
+    let newData = shuffle(d).pop()
 
     let fav = [...shuffle(state.favColors)]
     let size = [...shuffle(state.size)]
 
-    popData.figure = `${popData.figure} ${shuffle(fav).pop()} ${shuffle(
+    newData.figure = `${newData.figure} ${shuffle(fav).pop()} ${shuffle(
       size
     ).pop()}`
 
-    state.initialData = [...state.initialData, popData]
+    state.initialData = [...state.initialData, newData]
 
-    handleCreateImage(gameBoxScreenHolder)
-    handleRemoveFigureOnClick(gameBoxScreenHolder)
-
-    if (state.initialData.length > 0) {
-      state.initialData?.forEach((data) => {
-        if (!visibleY(document.getElementById(data.id))) {
-          let index = state.initialData.indexOf(data)
-          if (index > -1) {
-            state.initialData.splice(index, 1)
-          }
-          state.counter = state.initialData.length
-          handleCounterDisplay()
-          handleCreateImage(gameBoxScreenHolder)
-        }
-      })
-    }
+    handleMoveShape(newData, handleCreateImage(newData))
+    handleRemoveFigureOnClick()
   } else {
+    const popData = state.initialData.pop()
     state.initialData = state.initialData.slice(0, -1)
-    handleCreateImage(gameBoxScreenHolder)
-    handleRemoveFigureOnClick(gameBoxScreenHolder)
+    handleRemoveShape(popData)
+    handleRemoveFigureOnClick()
   }
 }

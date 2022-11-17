@@ -3,7 +3,6 @@ import { UI_CONSTANTS } from '../data/constants'
 import { handleCounterDisable } from './handleCounterDisable'
 import { handleCounterDisplay } from './handleCounterDisplay'
 import { handleCounterEnable } from './handleCounterEnable'
-import { handleCreateImage } from './handleCreateImage'
 
 export function handleTriggerStartStop(btn) {
   btn?.addEventListener('click', () => {
@@ -16,8 +15,8 @@ export function handleTriggerStartStop(btn) {
       handleCounterDisable(counterBtns)
       state.counter = 0
       state.initialData = []
+      gameBoxScreenHolder.innerHTML = ''
       handleCounterDisplay()
-      handleCreateImage(gameBoxScreenHolder)
     }
   })
 }

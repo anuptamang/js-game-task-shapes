@@ -2,23 +2,19 @@ const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
     app: ['./src/js/app.js'],
   },
-  output: {
-    path: path.resolve(__dirname, 'src/build'),
-    filename: 'app.bundle.js',
-    publicPath: '/build/',
-  },
-
+  devtool: 'inline-source-map',
   devServer: {
-    // contentBase: posix.relative(__dirname, 'build'),
-    static: path.resolve(__dirname, 'src'),
+    static: path.resolve(__dirname, './build'),
+    compress: true,
     port: 4040,
     open: true,
-    hot: true,
+    hot: false,
   },
 
   module: {
@@ -45,6 +41,11 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[name].bundle.css',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/views/index.html',
+      minify: false,
+    }),
 
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -52,4 +53,11 @@ module.exports = {
       },
     }),
   ],
+
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'app.bundle.js',
+    publicPath: '/',
+    clean: true,
+  },
 }

@@ -5,6 +5,5 @@ import { getLimitedItems } from '../utils'
 export function handleLoadInitialData() {
   state.initialData = getLimitedItems(state.data, state.counter)
 
-  handleCreateImage(gameBoxScreenHolder)
   handleRemoveFigureOnClick(gameBoxScreenHolder)
 }

@@ -1,17 +1,17 @@
-import { state } from '../app'
+import { gameBoxScreenHolder, state } from '../app'
 import { handleCounterDisplay } from './handleCounterDisplay'
-import { handleCreateImage } from './handleCreateImage'
+import { handleRemoveShape } from './handleRemoveShape'
 
-export function handleRemoveFigureOnClick(holder) {
-  holder?.addEventListener('click', (e) => {
+export function handleRemoveFigureOnClick() {
+  gameBoxScreenHolder?.addEventListener('click', (e) => {
     const figure = e.target
-    state.initialData = state.initialData.filter(
-      (data) => figure.id !== data.id
+    const figureToRemove = state.initialData.find(
+      (item) => item.id === figure.id
     )
 
-    state.counter = state.initialData.length
+    handleRemoveShape(figureToRemove)
 
+    state.counter = state.initialData.length
     handleCounterDisplay()
-    handleCreateImage(holder)
   })
 }

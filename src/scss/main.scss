@@ -134,6 +134,14 @@
   margin: 20px;
   cursor: not-allowed;
   background: $gray;
+  opacity: 0;
+  transition: all 0.3s linear;
+  position: absolute;
+  bottom: 0;
+
+  &.in {
+    opacity: 1;
+  }
 
   &-circle {
     border-radius: 100%;
@@ -267,7 +275,7 @@
   @each $size in $sizes {
     &.#{$size} {
       @if $size == 'small' {
-        transform: scale(0.5);
+        transform: scale(0.4);
         // margin: 5px;
       }
 
@@ -277,7 +285,7 @@
       }
 
       @if $size == 'large' {
-        transform: scale(1.4);
+        transform: scale(1.2);
         // margin: 5px;
       }
     }
