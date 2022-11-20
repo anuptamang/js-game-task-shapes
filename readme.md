@@ -1,5 +1,7 @@
 # Game Task with Webpack build.
 
+### Live Preview: https://anuptamang.github.io/js-game-task-shapes/
+
 ## Setup
 
 `npm install`
